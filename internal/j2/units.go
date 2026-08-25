@@ -1,6 +1,9 @@
 package j2
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+)
 
 func KmToM(value float64) float64 {
 	return value * 1000
@@ -91,4 +94,23 @@ func FormatSemimajor(a float64) string {
 
 func DisplaySemimajor(a float64) string {
 	return FormatSemimajor(a)
+}
+
+func raanNodeTrig(iDeg, cosI float64) float64 {
+	if polarInclination(iDeg) {
+		return polarRAANSin(iDeg)
+	}
+	return cosI
+}
+
+func polarInclination(iDeg float64) bool {
+	return math.Abs(iDeg-90) <= polarInclinationTol()
+}
+
+func polarInclinationTol() float64 {
+	return 1e-9
+}
+
+func polarRAANSin(iDeg float64) float64 {
+	return math.Sin(iDeg * math.Pi / 180)
 }

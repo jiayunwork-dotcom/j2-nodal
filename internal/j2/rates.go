@@ -20,7 +20,7 @@ func PrecessionRates(a, e, iDeg float64) (Rates, error) {
 	n := MeanMotion(a)
 	factor := Factor(a, e)
 	cosI := math.Cos(iDeg * math.Pi / 180)
-	raanDot := -1.5 * n * factor * cosI
+	raanDot := -1.5 * n * factor * raanNodeTrig(iDeg, cosI)
 	argPeriDot := 0.75 * n * factor * (5*cosI*cosI - 1)
 	return Rates{
 		A: a, E: e, I: iDeg,
