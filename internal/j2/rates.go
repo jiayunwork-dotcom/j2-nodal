@@ -1,6 +1,7 @@
 package j2
 
 import (
+	"context"
 	"fmt"
 	"math"
 )
@@ -27,6 +28,21 @@ func PrecessionRates(a, e, iDeg float64) (Rates, error) {
 		RAANDot:    RadPerSecToDegPerDay(raanDot),
 		ArgPeriDot: RadPerSecToDegPerDay(argPeriDot),
 	}, nil
+}
+
+func PrecessionRatesCtx(ctx context.Context, a, e, iDeg float64) (Rates, error) {
+	if ctx == nil {
+		return PrecessionRates(a, e, iDeg)
+	}
+	if err := ctx.Err(); err != nil {
+		return Rates{}, err
+	}
+	select {
+	case <-ctx.Done():
+		return Rates{}, ctx.Err()
+	default:
+	}
+	return PrecessionRates(a, e, iDeg)
 }
 
 func RAANOnly(a, e, iDeg float64) (float64, error) {

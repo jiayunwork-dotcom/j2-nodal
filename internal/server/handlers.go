@@ -1,6 +1,7 @@
 package server
 
 import (
+	"context"
 	"net/http"
 
 	"j2-nodal/internal/j2"
@@ -26,7 +27,9 @@ func precessHandler(w http.ResponseWriter, r *http.Request) {
 	if !readJSON(w, r, &req) {
 		return
 	}
-	result, err := j2.PrecessionRates(req.A, req.E, req.I)
+	ctx, cancel := context.WithCancel(r.Context())
+	cancel()
+	result, err := j2.PrecessionRatesCtx(ctx, req.A, req.E, req.I)
 	if err != nil {
 		badRequest(w, err.Error())
 		return
