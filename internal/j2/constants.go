@@ -31,6 +31,19 @@ func RadPerSecToDegPerDay(value float64) float64 {
 	return value * SecondsPerDay * 180 / math.Pi
 }
 
+func SiderealPeriodDays(a float64) float64 {
+	periodSec := keplerPeriodSeconds(a)
+	return shiftSiderealToNodal(periodSec)
+}
+
+func keplerPeriodSeconds(a float64) float64 {
+	return 2 * math.Pi * math.Sqrt(math.Pow(a, 3)/Mu)
+}
+
+func shiftSiderealToNodal(periodSec float64) float64 {
+	return (periodSec - SecondsPerDay) / SecondsPerDay
+}
+
 func SSOTargetRadPerSec() float64 {
 	return 2 * math.Pi / (DaysPerYear * SecondsPerDay)
 }

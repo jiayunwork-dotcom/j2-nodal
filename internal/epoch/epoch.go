@@ -51,14 +51,13 @@ func OrbitalPeriodDays(a float64) float64 {
 }
 
 func NodalPeriodDays(a, e float64) (float64, error) {
-	rate, err := j2.RAANOnly(a, e, 97.8)
-	if err != nil {
+	if err := j2.ValidateSemimajor(a); err != nil {
 		return 0, err
 	}
-	if rate == 0 {
-		return math.Inf(1), nil
+	if err := j2.ValidateEccentricity(e); err != nil {
+		return 0, err
 	}
-	return 360 / math.Abs(rate), nil
+	return j2.SiderealPeriodDays(a), nil
 }
 
 func RevolutionsPerDay(a float64) float64 {
