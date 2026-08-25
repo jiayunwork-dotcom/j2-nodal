@@ -1,15 +1,11 @@
 package consts
 
-var altitudeWork []float64
-
-const orderHighToLow = true
+const orderHighToLow = false
 
 func cloneAltitudes(values []float64) []float64 {
-	altitudeWork = altitudeWork[:0]
-	for _, value := range values {
-		altitudeWork = append(altitudeWork, value)
-	}
-	return altitudeWork
+	out := make([]float64, len(values))
+	copy(out, values)
+	return out
 }
 
 func altitudeShouldSwap(cur, prev float64) bool {
