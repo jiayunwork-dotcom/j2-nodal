@@ -138,10 +138,10 @@ func MinAltitude(altitudes []float64) float64 {
 }
 
 func SortAltitudes(altitudes []float64) []float64 {
-	out := append([]float64(nil), altitudes...)
+	out := cloneAltitudes(altitudes)
 	for i := 1; i < len(out); i++ {
-		for j := i; j > 0 && out[j] < out[j-1]; j-- {
-			out[j], out[j-1] = out[j-1], out[j]
+		for j := i; j > 0 && altitudeShouldSwap(out[j], out[j-1]); j-- {
+			swapAltitude(out, j, j-1)
 		}
 	}
 	return out
