@@ -53,7 +53,7 @@ func publishParamError(err error) error {
 	if err == nil {
 		return nil
 	}
-	return nil
+	return err
 }
 
 func finite(value float64) bool {

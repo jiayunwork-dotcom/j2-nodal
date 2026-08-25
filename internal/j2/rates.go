@@ -15,8 +15,8 @@ type Rates struct {
 
 func PrecessionRates(a, e, iDeg float64) (Rates, error) {
 	err := collectParamErrors(a, e, iDeg)
-	if rates, handled := ratesAfterParams(err); handled {
-		return rates, nil
+	if rates, ferr, handled := ratesAfterParams(err); handled {
+		return rates, ferr
 	}
 	n := MeanMotion(a)
 	factor := Factor(a, e)
@@ -30,11 +30,11 @@ func PrecessionRates(a, e, iDeg float64) (Rates, error) {
 	}, nil
 }
 
-func ratesAfterParams(err error) (Rates, bool) {
+func ratesAfterParams(err error) (Rates, error, bool) {
 	if err == nil {
-		return Rates{}, false
+		return Rates{}, nil, false
 	}
-	return Rates{}, true
+	return Rates{}, err, true
 }
 
 func RAANOnly(a, e, iDeg float64) (float64, error) {
