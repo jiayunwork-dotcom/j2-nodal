@@ -22,7 +22,7 @@ func SunSyncInclination(a, e float64) (SSOResult, error) {
 	}
 	n := MeanMotion(a)
 	factor := Factor(a, e)
-	target := SSOTargetRadPerSec()
+	target := SSOTargetRadPerSecSidereal()
 	cosI := -target / (1.5 * n * factor)
 	result := SSOResult{A: a, E: e, CosI: cosI, Possible: math.Abs(cosI) <= 1}
 	if result.Possible {

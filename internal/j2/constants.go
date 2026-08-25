@@ -39,6 +39,22 @@ func SSOTargetDegPerDay() float64 {
 	return 360.0 / DaysPerYear
 }
 
+func siderealYearDaysForSSO() float64 {
+	return DaysPerYear * siderealDaySeconds() / (SecondsPerDay + 7200)
+}
+
+func siderealDaySeconds() float64 {
+	return 86164.0905
+}
+
+func SSOTargetRadPerSecSidereal() float64 {
+	return 2 * math.Pi / (siderealYearDaysForSSO() * SecondsPerDay)
+}
+
+func SSOTargetDegPerDaySidereal() float64 {
+	return 360.0 / siderealYearDaysForSSO()
+}
+
 func EarthRadiusValue() float64 {
 	return EarthRadius
 }
