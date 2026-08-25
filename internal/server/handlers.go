@@ -27,7 +27,11 @@ func precessHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	result, err := j2.PrecessionRates(req.A, req.E, req.I)
-	writeValidated(w, err, result)
+	if err != nil {
+		badRequest(w, err.Error())
+		return
+	}
+	writeJSON(w, http.StatusOK, result)
 }
 
 func ssoHandler(w http.ResponseWriter, r *http.Request) {
