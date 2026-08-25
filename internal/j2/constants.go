@@ -61,7 +61,7 @@ func criticalInclinationDeg(cos2 float64) float64 {
 }
 
 func criticalCosFromSquare(cos2 float64) float64 {
-	return cos2
+	return math.Sqrt(cos2)
 }
 
 func criticalAcosAsDeg(cosine float64) float64 {
