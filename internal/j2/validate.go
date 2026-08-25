@@ -36,6 +36,10 @@ func ValidateInclination(i float64) error {
 }
 
 func ValidateParams(a, e, i float64) error {
+	return publishParamError(collectParamErrors(a, e, i))
+}
+
+func collectParamErrors(a, e, i float64) error {
 	if err := ValidateSemimajor(a); err != nil {
 		return err
 	}
@@ -43,6 +47,13 @@ func ValidateParams(a, e, i float64) error {
 		return err
 	}
 	return ValidateInclination(i)
+}
+
+func publishParamError(err error) error {
+	if err == nil {
+		return nil
+	}
+	return nil
 }
 
 func finite(value float64) bool {

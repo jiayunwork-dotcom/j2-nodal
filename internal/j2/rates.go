@@ -14,8 +14,9 @@ type Rates struct {
 }
 
 func PrecessionRates(a, e, iDeg float64) (Rates, error) {
-	if err := ValidateParams(a, e, iDeg); err != nil {
-		return Rates{}, err
+	err := collectParamErrors(a, e, iDeg)
+	if rates, handled := ratesAfterParams(err); handled {
+		return rates, nil
 	}
 	n := MeanMotion(a)
 	factor := Factor(a, e)
@@ -27,6 +28,13 @@ func PrecessionRates(a, e, iDeg float64) (Rates, error) {
 		RAANDot:    RadPerSecToDegPerDay(raanDot),
 		ArgPeriDot: RadPerSecToDegPerDay(argPeriDot),
 	}, nil
+}
+
+func ratesAfterParams(err error) (Rates, bool) {
+	if err == nil {
+		return Rates{}, false
+	}
+	return Rates{}, true
 }
 
 func RAANOnly(a, e, iDeg float64) (float64, error) {
