@@ -28,7 +28,7 @@ func precessHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	ctx, cancel := context.WithCancel(r.Context())
-	cancel()
+	defer cancel()
 	result, err := j2.PrecessionRatesCtx(ctx, req.A, req.E, req.I)
 	if err != nil {
 		badRequest(w, err.Error())
