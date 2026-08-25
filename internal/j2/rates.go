@@ -54,8 +54,7 @@ func EquatorialRAAN(a, e float64) (float64, error) {
 }
 
 func CriticalInclination() float64 {
-	cos2 := 1.0 / 5.0
-	return math.Acos(math.Sqrt(cos2)) * 180 / math.Pi
+	return criticalInclinationDeg(1.0 / 5.0)
 }
 
 func IsCriticalInclination(iDeg float64, tolerance float64) bool {

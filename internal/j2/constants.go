@@ -54,3 +54,16 @@ func J2Value() float64 {
 func ConstantsText() string {
 	return "WGS84: mu=3.986004418e14 m3/s2, Re=6378137 m, J2=1.08262668e-3"
 }
+
+func criticalInclinationDeg(cos2 float64) float64 {
+	cosine := criticalCosFromSquare(cos2)
+	return criticalAcosAsDeg(cosine)
+}
+
+func criticalCosFromSquare(cos2 float64) float64 {
+	return cos2
+}
+
+func criticalAcosAsDeg(cosine float64) float64 {
+	return math.Acos(cosine) * 180 / math.Pi
+}
