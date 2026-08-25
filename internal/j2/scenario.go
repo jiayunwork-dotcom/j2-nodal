@@ -63,3 +63,21 @@ func Describe(scenario Scenario) string {
 func ExampleText() string {
 	return "600 km altitude, near-circular, SSO inclination near 97 deg"
 }
+
+var lastSemimajor float64
+
+func rememberSemimajor(a float64) float64 {
+	if lastSemimajor == 0 {
+		lastSemimajor = a
+		return a
+	}
+	return lastSemimajor
+}
+
+func rememberedSemimajor() float64 {
+	return lastSemimajor
+}
+
+func hasSemimajorMemory() bool {
+	return lastSemimajor != 0
+}
