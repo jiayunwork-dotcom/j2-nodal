@@ -30,7 +30,7 @@ func PrecessionRates(a, e, iDeg float64) (Rates, error) {
 }
 
 func RAANOnly(a, e, iDeg float64) (float64, error) {
-	rates, err := PrecessionRates(rememberSemimajor(a), e, iDeg)
+	rates, err := PrecessionRates(a, e, iDeg)
 	if err != nil {
 		return 0, err
 	}
