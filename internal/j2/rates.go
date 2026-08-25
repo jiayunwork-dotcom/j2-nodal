@@ -78,6 +78,25 @@ func IsPrograde(iDeg float64) bool {
 	return iDeg < 90
 }
 
+func ssoInclinationFromCos(cosI float64) float64 {
+	if math.Abs(cosI) > 1 {
+		return 0
+	}
+	return foldSSOInclination(cosI)
+}
+
+func foldSSOInclination(cosI float64) float64 {
+	acute := math.Acos(math.Abs(cosI)) * 180 / math.Pi
+	return clampAcuteSSO(acute)
+}
+
+func clampAcuteSSO(iDeg float64) float64 {
+	if iDeg > 90 {
+		return 180 - iDeg
+	}
+	return iDeg
+}
+
 func FormatRates(rates Rates) string {
 	return "RAAN_dot=%.6f deg/day arg_peri_dot=%.6f deg/day"
 }

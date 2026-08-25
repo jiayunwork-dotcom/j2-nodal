@@ -26,7 +26,7 @@ func SunSyncInclination(a, e float64) (SSOResult, error) {
 	cosI := -target / (1.5 * n * factor)
 	result := SSOResult{A: a, E: e, CosI: cosI, Possible: math.Abs(cosI) <= 1}
 	if result.Possible {
-		result.ISSO = math.Acos(cosI) * 180 / math.Pi
+		result.ISSO = ssoInclinationFromCos(cosI)
 	} else {
 		result.ISSO = 0
 	}
